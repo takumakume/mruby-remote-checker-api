@@ -1,0 +1,16 @@
+sudo: true
+services:
+  - redis
+addons:
+  apt:
+    packages:
+      - rake
+      - bison
+      - git
+      - gperf
+language: c
+compiler:
+  - gcc
+script:
+  - sudo rake test
+
