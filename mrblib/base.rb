@@ -10,17 +10,13 @@ module RemoteChecker
       raise RuntimeError, "query string parse error: #{e.message}"
     end
 
-    def hash_safe_read(key)
-      raise unless queries.has_key?(key) && queries[key] && !queries[key].empty?
-      queries[key]
-    end
 
     def timeout
-      hash_safe_read("timeout").to_f rescue 3
+      queries.fetch("timeout", 3).to_f
     end
 
     def max_tries
-      hash_safe_read("max_tries").to_i rescue 3
+      queries.fetch("max_tries", 3).to_i
     end
 
     def valid?

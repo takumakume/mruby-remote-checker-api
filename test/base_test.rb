@@ -42,14 +42,11 @@ assert("RemoteChecker::Base#queries") do
     RemoteChecker::Base.new(URL_NO_QUERY).queries
   end
 
+  assert_raise(RuntimeError) do
+    RemoteChecker::Base.new(URL_IPADDR_EMPTY).queries
+  end
+
   assert_equal(QUERIES, RemoteChecker::Base.new(URL).queries)
-end
-
-assert("RemoteChecker::Base#hash_safe_read") do
-  assert_equal("8.8.8.8", RemoteChecker::Base.new(URL).hash_safe_read("ipaddr"))
-
-  assert_raise(RuntimeError){RemoteChecker::Base.new(URL_IPADDR_EMPTY).hash_safe_read("ipaddr")}
-  assert_raise(RuntimeError){RemoteChecker::Base.new(URL).hash_safe_read("no_key")}
 end
 
 assert("RemoteChecker::Base#retryable") do
